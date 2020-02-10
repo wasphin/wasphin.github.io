@@ -10,6 +10,8 @@
 (require 'org)
 (require 'ox-publish)
 
+(setq make-backup-files nil)
+
 (setq org-publish-project-alist
       '(
         ("org-base"
