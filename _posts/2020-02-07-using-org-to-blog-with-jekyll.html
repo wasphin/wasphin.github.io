@@ -1,0 +1,142 @@
+---
+layout: default
+title: 使用 Emacs org-mode 及 Jekyll 编写并搭建个人博客.
+---
+
+<div id="outline-container-org1e3f860" class="outline-2">
+<h2 id="org1e3f860">使用 <a href="https://www.gnu.org/software/emacs/">Emacs</a> <a href="https://orgmode.org">org-mode</a> 及 <a href="https://github.com/jekyll/jekyll">Jekyll</a> 编写并搭建个人博客.</h2>
+<div class="outline-text-2" id="text-org1e3f860">
+<p>
+参考：
+</p>
+<ul class="org-ul">
+<li><a href="https://orgmode.org/worg/org-tutorials/org-jekyll.html">Using org to Blog with Jekyll</a>;</li>
+</ul>
+
+<p>
+总体思路是:
+</p>
+<ul class="org-ul">
+<li>org-mode 负责导出内容为网页的 body 部分;</li>
+<li>Jekyll 负责网页的样式, 及最终的 host;</li>
+</ul>
+</div>
+
+<div id="outline-container-orgdb6fe63" class="outline-3">
+<h3 id="orgdb6fe63">org 编写</h3>
+<div class="outline-text-3" id="text-orgdb6fe63">
+<p>
+在 <a href="https://orgmode.org/worg/org-tutorials/org-jekyll.html">Using org to Blog with Jekyll</a> 中, 部分内容由于 Emacs 版本更新而过时了.
+</p>
+</div>
+
+<ul class="org-ul">
+<li><a id="orgab9296f"></a>Front Matter<br />
+<div class="outline-text-4" id="text-orgab9296f">
+<p>
+原文中使用 <code>#+BEGIN_HTML</code> <code>#+END_HTML</code> 导出, 该方式在当前 org 版本(9.3.2)下不是 <b>literally</b>, 需改用 <code>#+BEGIN_EXPORT html</code> <code>#+END_EXPORT</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-org"><span style="font-weight: bold; font-style: italic;">#+BEGIN_EXPORT html</span>
+---
+layout: default
+title:
+---
+<span style="font-weight: bold; font-style: italic;">#+END_EXPORT</span>
+</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+
+<div id="outline-container-orga38424b" class="outline-3">
+<h3 id="orga38424b">目录结构</h3>
+<div class="outline-text-3" id="text-orga38424b">
+<pre class="example">
+site.org/
+`-- org/
+|   `-- posts/
+|   |   `-- 2020-02-07-using-org-to-blog-with-jekyll.org
+|   `-- about.org
+|   `-- index.org
+|
+`-- jekyll/
+    `-- _includes/
+    `-- _layouts/
+    `-- _posts/
+    `-- _config.yml
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgbfb80f5" class="outline-3">
+<h3 id="orgbfb80f5">测试</h3>
+<div class="outline-text-3" id="text-orgbfb80f5">
+<p>
+参考: <a href="https://help.github.com/en/github/working-with-github-pages/testing-your-github-pages-site-locally-with-jekyll">Testing your GitHub Pages site locally with Jekyll</a>.
+</p>
+</div>
+
+<ul class="org-ul">
+<li><a id="org2bd0aaa"></a>安装 Jekyll 及 bundler<br />
+<ul class="org-ul">
+<li><a id="orgf558680"></a>配置 gem 环境变量<br />
+<div class="outline-text-5" id="text-orgf558680">
+<div class="org-src-container">
+<pre class="src src-SH">echo 'gem: --user-install --bindir ~/your/local/bin/path' &gt;&gt; ~/.gemrc
+</pre>
+</div>
+
+<p>
+执行 <code>gem environment</code> 检查环境变量, 确认是否生效.
+</p>
+</div>
+</li>
+
+<li><a id="org53c7d39"></a>安装 Jekyll 及 bundler<br />
+<div class="outline-text-5" id="text-org53c7d39">
+<div class="org-src-container">
+<pre class="src src-sh">gem install jekyll bundler
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org1de6766"></a>配置 bundler<br />
+<div class="outline-text-5" id="text-org1de6766">
+<div class="org-src-container">
+<pre class="src src-sh">bundle config set --global bin  ~/your/local/bin/path
+bundle config set --global path ~/.gem/ruby
+</pre>
+</div>
+
+<p>
+执行 <code>bundle env</code> 检查环境变量, 确认是否生效.
+</p>
+</div>
+</li>
+</ul>
+</li>
+
+<li><a id="org23819a7"></a>配置并 host 本项目<br />
+<div class="outline-text-4" id="text-org23819a7">
+<div class="org-src-container">
+<pre class="src src-sh"><span style="font-weight: bold;">cd</span> ~/your/local/repo/path
+make
+<span style="font-weight: bold;">cd</span> jekyll &amp;&amp; bundle exec jekyll serve
+</pre>
+</div>
+
+<p>
+打开浏览器, 访问 <a href="http://localhost:4000">http://localhost:4000</a> 进行检查.
+</p>
+
+<p>
+<b>注</b>: 更新 <b>org</b> 下内容后需要重新执行 <code>make</code>.
+</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
