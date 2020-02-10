@@ -4,3 +4,5 @@
 
 使用 [[https://www.gnu.org/software/emacs/][Emacs]] [[https://orgmode.org][org-mode]] 及 [[https://github.com/jekyll/jekyll][Jekyll]] 编写并搭建个人博客.
 参考: [[https://orgmode.org/worg/org-tutorials/org-jekyll.html][Using org to Blog with Jekyll]].
+
+发布参考: [[https://duncan.codes/posts/2019-09-03-migrating-from-jekyll-to-org/index.html][Migrating from Jekyll to org-mode and Github Actions]].
