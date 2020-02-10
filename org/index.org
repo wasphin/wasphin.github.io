@@ -1,0 +1,35 @@
+#+STARTUP: showall indent
+#+LANGUAGE: zh
+#+TITLE: Welcom to Xiaofeng's Website.
+#+INFOJS_OPT: view:info toc:t ltoc:nil
+#+OPTIONS: H:2 num:nil tags:nil toc:nil timestamps:nil
+
+#+BEGIN_EXPORT html
+---
+layout: home
+title: 主页
+---
+#+END_EXPORT
+
+#+BEGIN_EXPORT html
+<ul class="posts">
+{% for post in site.posts limit: 5 %}
+  <div class="post_info">
+    <li><a href="{{ post.url }}">{{ post.title }}</a> <span>({{ post.date | date:"%Y-%m-%d" }})</span></li>
+    </br> <em>{{ post.excerpt }} </em>
+    </div>
+  {% endfor %}
+</ul>
+
+
+
+{% if site.posts.size > 5 %}
+  <h4>Older Posts</h4>
+  <ul>
+  {% for post in site.posts offset: 5 %}
+    <li><a href="{{ post.url }}">{{ post.title }}</a> ({{ post.date | date:"%Y-%m-%d" }})</li>
+  {% endfor %}
+  </ul>
+{% endif %}
+
+#+END_EXPORT

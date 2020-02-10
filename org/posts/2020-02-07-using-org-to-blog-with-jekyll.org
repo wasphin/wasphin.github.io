@@ -1,0 +1,92 @@
+#+STARTUP: showall indent
+#+LANGUAGE: zh
+#+TITLE: 使用 [[https://www.gnu.org/software/emacs/][Emacs]] [[https://orgmode.org][org-mode]] 及 [[https://github.com/jekyll/jekyll][Jekyll]] 编写并搭建个人博客.
+#+INFOJS_OPT: view:info toc:t ltoc:nil
+#+OPTIONS: H:2 num:nil tags:nil toc:nil timestamps:nil
+#+BEGIN_EXPORT html
+---
+layout: default
+title: 使用 Emacs org-mode 及 Jekyll 编写并搭建个人博客.
+---
+#+END_EXPORT
+
+* 使用 [[https://www.gnu.org/software/emacs/][Emacs]] [[https://orgmode.org][org-mode]] 及 [[https://github.com/jekyll/jekyll][Jekyll]] 编写并搭建个人博客.
+
+参考：
+- [[https://orgmode.org/worg/org-tutorials/org-jekyll.html][Using org to Blog with Jekyll]];
+
+总体思路是:
+- org-mode 负责导出内容为网页的 body 部分;
+- Jekyll 负责网页的样式, 及最终的 host;
+
+** org 编写
+在 [[https://orgmode.org/worg/org-tutorials/org-jekyll.html][Using org to Blog with Jekyll]] 中, 部分内容由于 Emacs 版本更新而过时了.
+
+*** Front Matter
+原文中使用 =#+BEGIN_HTML= =#+END_HTML= 导出, 该方式在当前 org 版本(9.3.2)下不是 *literally*, 需改用 =#+BEGIN_EXPORT html= =#+END_EXPORT=:
+#+BEGIN_SRC org
+#+BEGIN_EXPORT html
+---
+layout: default
+title:
+---
+#+END_EXPORT
+#+END_SRC
+
+** 目录结构
+
+#+BEGIN_SRC
+site.org/
+`-- org/
+|   `-- posts/
+|   |   `-- 2020-02-07-using-org-to-blog-with-jekyll.org
+|   `-- about.org
+|   `-- index.org
+|
+`-- jekyll/
+    `-- _includes/
+    `-- _layouts/
+    `-- _posts/
+    `-- _config.yml
+#+END_SRC
+
+** 测试
+
+参考: [[https://help.github.com/en/github/working-with-github-pages/testing-your-github-pages-site-locally-with-jekyll][Testing your GitHub Pages site locally with Jekyll]].
+
+*** 安装 Jekyll 及 bundler
+
+**** 配置 gem 环境变量
+
+#+BEGIN_SRC SH
+echo 'gem: --user-install --bindir ~/your/local/bin/path' >> ~/.gemrc
+#+END_SRC
+
+执行 =gem environment= 检查环境变量, 确认是否生效.
+
+**** 安装 Jekyll 及 bundler
+
+#+BEGIN_SRC sh
+gem install jekyll bundler
+#+END_SRC
+
+**** 配置 bundler
+
+#+BEGIN_SRC sh
+bundle config set --global bin  ~/your/local/bin/path
+bundle config set --global path ~/.gem/ruby
+#+END_SRC
+
+执行 =bundle env= 检查环境变量, 确认是否生效.
+
+*** 配置并 host 本项目
+
+#+BEGIN_SRC sh
+cd ~/your/local/repo/path
+make
+cd jekyll && bundle exec jekyll serve
+#+END_SRC
+
+打开浏览器, 访问 http://localhost:4000 进行检查.
+
+*注*: 更新 *org* 下内容后需要重新执行 =make=.
